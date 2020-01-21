@@ -1,0 +1,25 @@
+{
+    "name": "awful85/rbac",
+    "description": "Сustomizable, fast and reliable PHP role based control library, with a salable storage in mongo db",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Rodion Ivanov",
+            "email": "9866494@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Awful85\\Rbac\\": "src/",
+            "Awful85\\Rbac\\Test\\": "test/"
+        }
+    },
+    "require": {
+        "doctrine/mongodb-odm": "^2.0",
+        "psr/log": "^1.1",
+        "psr/container": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    }
+}

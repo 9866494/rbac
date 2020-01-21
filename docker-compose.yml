@@ -1,0 +1,104 @@
+version: '2.2'
+services:
+
+  mongo_rs_0:
+    container_name: mongo_rs_0
+    image: mongo:4.2.0
+    volumes:
+      - ./docker/mongo/config.yml:/etc/mongo/config.yml
+      - ./docker/mongo/rs_init.js:/rs_init.js
+      - ./docker/mongo/rs0/:/data/db
+    entrypoint: "/usr/bin/mongod --config /etc/mongo/config.yml --port 27018"
+    expose:
+      - 27018
+    ports:
+      - 27018:27018
+
+    healthcheck:
+      test: "mongo --port 27018 < rs_init.js"
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+    depends_on:
+      mongo_rs_1:
+        condition: service_healthy
+      mongo_rs_2:
+        condition: service_healthy
+
+  mongo_rs_1:
+    container_name: mongo_rs_1
+    image: mongo:4.2.0
+    volumes:
+      - ./docker/mongo/config.yml:/etc/mongo/config.yml
+      - ./docker/mongo/rs1/:/data/db
+    entrypoint: "/usr/bin/mongod --config /etc/mongo/config.yml --port 27019"
+    expose:
+      - 27019
+    ports:
+      - 27019:27019
+
+    healthcheck:
+      test: "echo 'db.runCommand(\"ping\").ok' | mongo --port 27019 --quiet | echo $$?"
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  mongo_rs_2:
+    container_name: mongo_rs_2
+    image: mongo:4.2.0
+    volumes:
+      - ./docker/mongo/config.yml:/etc/mongo/config.yml
+      - ./docker/mongo/rs2/:/data/db
+    entrypoint: "/usr/bin/mongod --config /etc/mongo/config.yml --port 27020"
+    expose:
+      - 27020
+    ports:
+      - 27020:27020
+
+    healthcheck:
+      test: "echo 'db.runCommand(\"ping\").ok' | mongo --port 27020 --quiet | echo $$?"
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  rback_test:
+    container_name: rback_test
+    image: thecodingmachine/php:7.2-v2-fpm
+    volumes:
+      - $SSH_AUTH_SOCK:/ssh-agent
+      - ~/.composer:/home/docker/.composer
+      - ./:/var/www/rback_test
+    working_dir: /var/www/rback_test
+    environment:
+      SSH_AUTH_SOCK: /ssh-agent
+      PHP_EXTENSION_MONGODB: 1
+
+      PHP_EXTENSION_XDEBUG: $DOCKER_XDEBUG_ENABLED
+      PHP_INI_XDEBUG__REMOTE_PORT: 9000
+      PHP_IDE_CONFIG: "serverName=rback_test"
+
+      PHP_EXTENSION_BLACKFIRE: $DOCKER_BLACKFIRE_ENABLED
+      BLACKFIRE_AGENT: blackfire
+
+      STARTUP_COMMAND_0000001: 'sudo chmod o+w /usr/local/etc/php/conf.d/generated_conf.ini'
+      STARTUP_COMMAND_0000002: 'echo "xdebug.remote_autostart=On" >> /usr/local/etc/php/conf.d/generated_conf.ini'
+
+    links:
+      - mongo_rs_0
+      - mongo_rs_1
+      - mongo_rs_2
+
+    depends_on:
+      mongo_rs_0:
+        condition: service_healthy
+      mongo_rs_1:
+        condition: service_healthy
+      mongo_rs_2:
+        condition: service_healthy
+
+    healthcheck:
+        test: ["CMD-SHELL", "if [ $$(ss -l | grep ':9000' -c) -eq '1' ]; then exit 0; else exit 1; fi;"]
+        interval: 10s
+        timeout: 10s
+        retries: 10

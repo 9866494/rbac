@@ -1,0 +1,13 @@
+.idea
+
+docker/mongo/rs0
+docker/mongo/rs0/*
+docker/!mongo/rs0/.gitkeep
+
+docker/mongo/rs1
+docker/mongo/rs1/*
+docker/!mongo/rs1/.gitkeep
+
+docker/mongo/rs2
+docker/mongo/rs2/*
+docker/!mongo/rs2/.gitkeep
