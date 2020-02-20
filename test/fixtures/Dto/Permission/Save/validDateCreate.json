@@ -1,0 +1,11 @@
+{
+  "code": "date_permission",
+  "service": null,
+  "name": "Some name",
+  "description": "Some description",
+  "combiningRule": null,
+  "categoryId": null,
+  "category": null,
+  "scope": "2020-01-01",
+  "permissionType": "date"
+}

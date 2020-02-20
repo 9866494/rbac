@@ -12,71 +12,71 @@ class User
     /**
      * @var string|null
      */
-    private $id;
+    protected $id;
 
     /**
      * @var bool
      */
-    private $locked = false;
+    protected $locked = false;
 
     /**
      * @var bool
      */
-    private $adminLocked = false;
+    protected $adminLocked = false;
 
     /**
      * @var string|null
      */
-    private $displayName = null;
+    protected $displayName = null;
 
     /**
      * @var string|null
      */
-    private $firstName = null;
+    protected $firstName = null;
 
     /**
      * @var string|null
      */
-    private $lastName = null;
+    protected $lastName = null;
 
     /**
      * @var string|null
      */
-    private $patronymic = null;
+    protected $patronymic = null;
 
     /**
      * @var string|null
      */
-    private $avatarUri = null;
+    protected $avatarUri = null;
 
     /**
      * @var \DateTime|null
      */
-    private $createdAt;
+    protected $createdAt;
 
     /**
      * @var \DateTime|null
      */
-    private $updatedAt;
+    protected $updatedAt;
 
     /**
      * @var string|null
      */
-    private $timeZone = "Europe/Moscow";
+    protected $timeZone = "Europe/Moscow";
 
     /**
      * @var Identity[]
      */
-    private $identity = [];
+    protected $identity = [];
 
     /**
      * @var UserRelatedData[]
      */
-    private $userRelatedData = [];
+    protected $userRelatedData = [];
 
     /**
      * @var UserInnerData[]
      */
-    private $userInnerData = [];
+    protected $userInnerData = [];
 
 }

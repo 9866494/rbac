@@ -8,15 +8,15 @@ class JwtDto
     /**
      * @var string|null
      */
-    private $accessToken = null;
+    protected $accessToken = null;
 
     /**
      * @var string|null
      */
-    private $refreshToken;
+    protected $refreshToken;
 
     /**
      * @var string|null
      */
-    private $fingerPrint;
+    protected $fingerPrint;
 }

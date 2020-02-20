@@ -8,12 +8,12 @@ abstract class AbstractKeyValueData
     /**
      * @var string
      */
-    private $key;
+    protected $key;
 
     /**
      * @var mixed
      */
-    private $value;
+    protected $value;
 
     /**
      * AbstractKeyValueData constructor.

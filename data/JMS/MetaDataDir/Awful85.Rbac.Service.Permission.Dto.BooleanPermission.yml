@@ -1,0 +1,4 @@
+Awful85\Rbac\Service\Permission\Dto\BooleanPermission:
+  properties:
+    scope:
+      type: bool

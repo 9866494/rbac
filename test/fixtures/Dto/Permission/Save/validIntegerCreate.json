@@ -1,0 +1,11 @@
+{
+  "code": "integer_permission",
+  "service": null,
+  "name": "Some name",
+  "description": "Some description",
+  "combiningRule": null,
+  "categoryId": null,
+  "category": null,
+  "scope": 1,
+  "permissionType": "int"
+}

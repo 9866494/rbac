@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">   
     <testsuites>
-        <testsuite name="AuthService">
-            <directory>test/Service/Auth</directory>
+        <testsuite name="PermissionService">
+            <directory>test/Service/Permission</directory>
+        </testsuite>
+        <testsuite name="UserService">
+            <directory>test/Service/User</directory>
         </testsuite>
     </testsuites>
 </phpunit>

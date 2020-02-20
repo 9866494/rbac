@@ -37,7 +37,7 @@ class TestContainer extends Container
         $config->setHydratorDir($doctrineFolder . '/Hydrators');
         $config->setHydratorNamespace('Hydrators');
         $config->setDefaultDB('doctrine_odm');
-        $config->setMetadataDriverImpl(AnnotationDriver::create($rootPath . '/Documents'));
+        $config->setMetadataDriverImpl(AnnotationDriver::create($rootPath . '/src/Document'));
 
         $client = new Client(
             'mongodb://mongo_rs_0:27018,mongo_rs_1:27019,mongo_rs_2:27020/awful-rbac-test?replicaSet=mongo_rs&readPreference=secondaryPreferred',

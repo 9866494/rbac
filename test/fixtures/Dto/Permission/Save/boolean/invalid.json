@@ -1,0 +1,12 @@
+{
+  "code": null,
+  "service": null,
+  "name": "Some name 1",
+  "description": "Some description 1",
+  "combiningRule": null,
+  "categoryId": null,
+  "category": null,
+  "scope": false,
+  "permissionType": "bool",
+  "id": "invalid_mongo_id"
+}

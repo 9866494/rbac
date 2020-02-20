@@ -1,0 +1,25 @@
+Awful85\Rbac\Service\Permission\Dto\Permission:
+  discriminator:
+    field_name: permissionType
+    map:
+      bool: Awful85\Rbac\Service\Permission\Dto\BooleanPermission
+  properties:
+    id:
+      type: string
+    code:
+      type: string
+    service:
+      type: string
+    name:
+      type: string
+    description:
+      type: string
+    category:
+      type: string
+    categoryId:
+      type: string
+    combiningRule:
+      type: string
+    permissionType:
+      type: string
+      exclude: true

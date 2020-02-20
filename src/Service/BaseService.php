@@ -4,22 +4,22 @@ declare(strict_types=1);
 namespace Awful85\Rbac\Service;
 
 
+use Awful85\Rbac\ContainerInjectableInterface;
 use Awful85\Rbac\ContainerInterface;
 use Awful85\Rbac\Document\User as UserDocument;
+use Awful85\Rbac\Document\Permission as PermissionDocument;
+use Awful85\Rbac\Repository\PermissionRepository;
 use Awful85\Rbac\Repository\UserRepository;
+use Doctrine\ODM\MongoDB\DocumentManager;
 
-class BaseService
+class BaseService implements ContainerInjectableInterface
 {
     /**
      * @var ContainerInterface
      */
     private $container;
 
-    /**
-     * BaseService constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
+    public function __construct(?ContainerInterface $container = null)
     {
         $this->container = $container;
     }
@@ -42,9 +42,18 @@ class BaseService
         return $this;
     }
 
-    protected function getUserRepository(): UserRepository
+    protected function getDocumentManager(): DocumentManager
     {
-        $this->getContainer()->getDocumentManager()->getRepository(UserDocument::class);
+        return $this->getContainer()->getDocumentManager();
     }
 
+    protected function getUserRepository(): UserRepository
+    {
+        return $this->getContainer()->getDocumentManager()->getRepository(UserDocument::class);
+    }
+
+    protected function getPermissionRepository(): PermissionRepository
+    {
+        return $this->getContainer()->getDocumentManager()->getRepository(PermissionDocument::class);
+    }
 }
